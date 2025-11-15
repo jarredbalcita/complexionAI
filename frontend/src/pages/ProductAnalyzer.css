@@ -1,0 +1,15 @@
+.product-analyzer {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.analyzer-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.analyzer-actions {
+  display: flex;
+  justify-content: center;
+  margin: var(--spacing-xl) 0;
+}

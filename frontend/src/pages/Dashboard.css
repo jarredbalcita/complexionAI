@@ -1,0 +1,138 @@
+.dashboard {
+  max-width: 1200px;
+}
+
+.page-header {
+  margin-bottom: var(--spacing-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-subtitle {
+  color: var(--text-secondary);
+  margin-top: var(--spacing-sm);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+  text-align: left;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+}
+
+.stat-value-primary {
+  color: var(--primary);
+}
+
+.stat-value-accent {
+  color: var(--accent);
+}
+
+.stat-description {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.stat-trend {
+  color: var(--primary);
+}
+
+.routines-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.view-all-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.view-all-link:hover {
+  gap: var(--spacing-sm);
+}
+
+.routines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.routine-card {
+  background-color: var(--background);
+}
+
+.routine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.routine-header h3 {
+  font-size: 1.25rem;
+}
+
+.routine-badge {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.routine-badge-am {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.routine-badge-pm {
+  background-color: var(--accent-light);
+  color: var(--accent-dark);
+}
+
+.routine-steps {
+  list-style: none;
+  padding: 0;
+}
+
+.routine-steps li {
+  padding: var(--spacing-sm) 0;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.routine-steps li:last-child {
+  border-bottom: none;
+}
