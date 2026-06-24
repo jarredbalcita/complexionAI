@@ -1,9 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Home, ClipboardList, Package, Sparkles, User } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Home, ClipboardList, Package, Sparkles, User, LogOut, Leaf } from 'lucide-react';
+import { supabase } from '../../lib/supabase';
 import './Sidebar.css';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
   const navItems = [
     { path: '/dashboard', icon: Home, label: 'Dashboard' },
     { path: '/my-routine', icon: ClipboardList, label: 'My Routine' },
@@ -12,11 +15,18 @@ const Sidebar = () => {
     { path: '/profile', icon: User, label: 'Profile' },
   ];
 
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate('/signin');
+  };
+
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
         <div className="logo">
-          <span className="logo-icon">✨</span>
+          <div className="logo-mark">
+            <Leaf size={15} />
+          </div>
           <span className="logo-text">ComplexionAI</span>
         </div>
       </div>
@@ -32,12 +42,19 @@ const Sidebar = () => {
                 `nav-item ${isActive ? 'nav-item-active' : ''}`
               }
             >
-              <Icon size={20} className="nav-icon" />
+              <Icon size={17} className="nav-icon" />
               <span className="nav-label">{item.label}</span>
             </NavLink>
           );
         })}
       </nav>
+
+      <div className="sidebar-footer">
+        <button className="nav-item signout-btn" onClick={handleSignOut}>
+          <LogOut size={17} className="nav-icon" />
+          <span className="nav-label">Sign Out</span>
+        </button>
+      </div>
     </aside>
   );
 };

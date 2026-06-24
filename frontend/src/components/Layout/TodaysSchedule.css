@@ -1,7 +1,7 @@
 .todays-schedule {
-  width: 320px;
+  width: 300px;
   padding: var(--spacing-xl);
-  background-color: var(--background);
+  background-color: var(--card-bg);
   border-left: 1px solid var(--border);
   height: 100vh;
   position: fixed;
@@ -15,6 +15,8 @@
   align-items: center;
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-light);
   color: var(--text-primary);
 }
 
@@ -23,14 +25,14 @@
 }
 
 .schedule-header h3 {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .schedule-list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
 
 .schedule-item {
@@ -40,21 +42,21 @@
 .schedule-time {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   color: var(--accent);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  margin-bottom: var(--spacing-sm);
-}
-
-.schedule-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
   margin-bottom: var(--spacing-xs);
 }
 
+.schedule-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
 .schedule-subtitle {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--text-secondary);
 }

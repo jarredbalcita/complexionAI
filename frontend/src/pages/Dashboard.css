@@ -1,12 +1,23 @@
 .dashboard {
   max-width: 1200px;
+  margin: 0 auto;
 }
 
 .page-header {
   margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-light);
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.page-greeting {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.01em;
 }
 
 .page-subtitle {
@@ -23,6 +34,26 @@
 
 .stat-card {
   text-align: left;
+}
+
+.stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.stat-icon-primary {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.stat-icon-accent {
+  background-color: var(--accent-light);
+  color: var(--accent-dark);
 }
 
 .stat-label {
@@ -49,7 +80,7 @@
 
 .stat-description {
   color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
@@ -75,6 +106,7 @@
   align-items: center;
   gap: var(--spacing-xs);
   color: var(--primary);
+  font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
   transition: gap 0.2s ease;
@@ -102,14 +134,16 @@
 }
 
 .routine-header h3 {
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .routine-badge {
-  padding: var(--spacing-xs) var(--spacing-md);
-  border-radius: var(--radius-md);
-  font-size: 0.875rem;
+  padding: 0.25rem var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
   font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 .routine-badge-am {
@@ -129,8 +163,9 @@
 
 .routine-steps li {
   padding: var(--spacing-sm) 0;
+  font-size: 0.875rem;
   color: var(--text-primary);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .routine-steps li:last-child {

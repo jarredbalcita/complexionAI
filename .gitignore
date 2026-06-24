@@ -1,8 +1,12 @@
-# Node modules (frontend + backend)
+# Dependencies
 node_modules/
 
-# Environment files
+# Environment variables — never commit these
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 backend/.env
 frontend/.env
 
@@ -16,18 +20,17 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# OS / Editor files
+# OS files
 .DS_Store
-*.swp
+Thumbs.db
+
+# Editor files
 .idea/
 .vscode/
+*.swp
+*.swo
 
-# Cache / temp files
+# Cache / temp
 .cache/
 .tmp/
-
-# Local environment settings
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.eslintcache

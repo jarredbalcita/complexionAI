@@ -5,9 +5,9 @@
 
 .main-content {
   flex: 1;
-  margin-left: 280px;
-  margin-right: 320px;
-  padding: var(--spacing-xl);
+  margin-left: 260px;
+  margin-right: 300px;
+  padding: var(--spacing-2xl) var(--spacing-xl);
   overflow-y: auto;
 }
 

@@ -15,7 +15,7 @@ export const protect = async (req, res, next) => {
 
     if (error || !user) return res.status(401).json({ error: "Invalid token" });
 
-    req.user = user; // <-- auth_user_id = user.id
+    req.user = user;
     next();
   } catch (err) {
     res.status(401).json({ error: "Auth failed" });

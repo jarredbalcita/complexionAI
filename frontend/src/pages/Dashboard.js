@@ -1,23 +1,39 @@
 import React from 'react';
-import { ArrowRight, TrendingUp } from 'lucide-react';
+import { ArrowRight, TrendingUp, ClipboardList, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Card from '../components/UI/Card';
+import { useAuth } from '../contexts/AuthContext';
 import './Dashboard.css';
 
+const getGreeting = () => {
+  const h = new Date().getHours();
+  if (h < 12) return 'Good morning';
+  if (h < 18) return 'Good afternoon';
+  return 'Good evening';
+};
+
 const Dashboard = () => {
+  const { user } = useAuth();
+  const displayName =
+    user?.user_metadata?.display_name ||
+    user?.email?.split('@')[0] ||
+    'there';
+
   const stats = [
     {
-      label: 'ROUTINES CREATED',
+      label: 'Routines Created',
       value: '3',
       description: 'Morning, Evening, Weekly',
       color: 'primary',
+      Icon: ClipboardList,
     },
     {
-      label: 'PRODUCTS ANALYZED',
+      label: 'Products Analyzed',
       value: '24',
       description: '+6 this week',
       color: 'accent',
       trend: true,
+      Icon: Activity,
     },
   ];
 
@@ -25,22 +41,12 @@ const Dashboard = () => {
     {
       title: 'Morning Routine',
       time: 'AM',
-      steps: [
-        '1. Cleanser',
-        '2. Vitamin C Serum',
-        '3. Moisturizer',
-        '4. SPF 50',
-      ],
+      steps: ['Cleanser', 'Vitamin C Serum', 'Moisturizer', 'SPF 50'],
     },
     {
       title: 'Evening Routine',
       time: 'PM',
-      steps: [
-        '1. Oil Cleanser',
-        '2. Water Cleanser',
-        '3. Retinol',
-        '4. Night Cream',
-      ],
+      steps: ['Oil Cleanser', 'Water Cleanser', 'Retinol', 'Night Cream'],
     },
   ];
 
@@ -48,31 +54,38 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="page-header">
         <div>
-          <h1>Dashboard</h1>
-          <p className="page-subtitle">Welcome back! Here's your skincare overview</p>
+          <p className="page-greeting">{getGreeting()}</p>
+          <h1>{displayName}</h1>
+          <p className="page-subtitle">Here's your skincare overview for today</p>
         </div>
       </div>
 
       <div className="stats-grid">
-        {stats.map((stat, index) => (
-          <Card key={index} padding="lg" className="stat-card">
-            <div className="stat-label">{stat.label}</div>
-            <div className={`stat-value stat-value-${stat.color}`}>
-              {stat.value}
-            </div>
-            <div className="stat-description">
-              {stat.trend && <TrendingUp size={16} className="stat-trend" />}
-              {stat.description}
-            </div>
-          </Card>
-        ))}
+        {stats.map((stat, index) => {
+          const Icon = stat.Icon;
+          return (
+            <Card key={index} padding="lg" className="stat-card">
+              <div className={`stat-icon stat-icon-${stat.color}`}>
+                <Icon size={18} />
+              </div>
+              <div className={`stat-value stat-value-${stat.color}`}>
+                {stat.value}
+              </div>
+              <div className="stat-label">{stat.label}</div>
+              <div className="stat-description">
+                {stat.trend && <TrendingUp size={13} className="stat-trend" />}
+                {stat.description}
+              </div>
+            </Card>
+          );
+        })}
       </div>
 
       <Card padding="lg" className="routines-section">
         <div className="section-header">
           <h2>Your Routines</h2>
           <Link to="/my-routine" className="view-all-link">
-            View All <ArrowRight size={18} />
+            View All <ArrowRight size={16} />
           </Link>
         </div>
 
@@ -86,8 +99,8 @@ const Dashboard = () => {
                 </span>
               </div>
               <ul className="routine-steps">
-                {routine.steps.map((step, stepIndex) => (
-                  <li key={stepIndex}>{step}</li>
+                {routine.steps.map((step, i) => (
+                  <li key={i}>{step}</li>
                 ))}
               </ul>
             </Card>

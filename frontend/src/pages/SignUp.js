@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Sparkles } from 'lucide-react';
 import Input from '../components/UI/Input';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
+import { supabase } from '../lib/supabase';
 import './Auth.css';
 
 const SignUp = () => {
@@ -13,22 +15,42 @@ const SignUp = () => {
     password: '',
     confirmPassword: '',
   });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!');
+      setError('Passwords do not match');
       return;
     }
-    // TODO: Implement actual authentication
-    console.log('Sign up:', formData);
+
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
+    setLoading(true);
+
+    const { error: authError } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+      options: { data: { display_name: formData.fullName } },
+    });
+
+    if (authError) {
+      setError(authError.message);
+      setLoading(false);
+      return;
+    }
+
     navigate('/dashboard');
   };
 
@@ -36,7 +58,7 @@ const SignUp = () => {
     <div className="auth-container">
       <Card className="auth-card" padding="lg">
         <div className="auth-header">
-          <div className="auth-logo">✨</div>
+          <div className="auth-logo"><Sparkles size={22} /></div>
           <h1>Create Account</h1>
           <p className="auth-subtitle">Join ComplexionAI today</p>
         </div>
@@ -66,7 +88,7 @@ const SignUp = () => {
             label="Password"
             type="password"
             name="password"
-            placeholder="Create a password"
+            placeholder="Create a password (min. 6 characters)"
             value={formData.password}
             onChange={handleChange}
             required
@@ -82,8 +104,10 @@ const SignUp = () => {
             required
           />
 
-          <Button type="submit" variant="primary" fullWidth size="lg">
-            Create Account
+          {error && <p className="auth-error">{error}</p>}
+
+          <Button type="submit" variant="primary" fullWidth size="lg" disabled={loading}>
+            {loading ? 'Creating account...' : 'Create Account'}
           </Button>
         </form>
 

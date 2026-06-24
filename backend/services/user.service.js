@@ -1,4 +1,3 @@
-// services/user.service.js
 import { supabase } from "../config/supabase.js";
 
 export const getProfile = async (authUserId) => {
@@ -13,10 +12,17 @@ export const getProfile = async (authUserId) => {
 };
 
 export const upsertProfile = async (authUserId, profileData) => {
-  // THIS LINE IS THE FIX — force auth_user_id so RLS allows it
+  const {
+    display_name, email, skin_type, skin_tone,
+    main_concerns, allergies, age_range, gender,
+    patch_test_results, preferences,
+  } = profileData;
+
   const payload = {
-    auth_user_id: authUserId, // ← critical
-    ...profileData,
+    auth_user_id: authUserId,
+    display_name, email, skin_type, skin_tone,
+    main_concerns, allergies, age_range, gender,
+    patch_test_results, preferences,
     updated_at: new Date().toISOString(),
   };
 
@@ -26,9 +32,6 @@ export const upsertProfile = async (authUserId, profileData) => {
     .select()
     .single();
 
-  if (error) {
-    console.error("Supabase upsert error:", error);
-    throw error;
-  }
+  if (error) throw error;
   return data;
 };

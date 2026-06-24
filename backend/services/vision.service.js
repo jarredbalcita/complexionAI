@@ -1,4 +1,4 @@
-import { openai } from "../config/openai.js";
+import { genAI } from "../config/gemini.js";
 
 const SYSTEM_PROMPT = `You are a world-class dermatologist and cosmetic chemist.
 Extract EVERY ingredient from the product photo exactly as written.
@@ -10,37 +10,36 @@ Return ONLY valid JSON with this exact structure:
   "ingredients": ["string"],
   "rating": "Safe" | "Caution" | "Avoid",
   "explanation": "short plain english reason",
-  "concerns_matched": ["acne", "rosacea", ...],
-  "allergens_found": ["fragrance", "alcohol", ...]
+  "concerns_matched": ["string"],
+  "allergens_found": ["string"]
 }`;
 
-export const analyzeProduct = async (imageBase64, userProfile) => {
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-      { role: "system", content: SYSTEM_PROMPT },
+export const analyzeProduct = async (imageBuffer, mimeType, userProfile) => {
+  const response = await genAI.models.generateContent({
+    model: "gemini-2.5-flash",
+    contents: [
       {
         role: "user",
-        content: [
+        parts: [
           {
-            type: "text",
-            text: `Skin type: ${
-              userProfile.skin_type || "unknown"
-            }\nConcerns: ${
+            text: `Skin type: ${userProfile.skin_type || "unknown"}\nConcerns: ${
               userProfile.main_concerns?.join(", ") || "none"
             }\nAllergies: ${userProfile.allergies?.join(", ") || "none"}`,
           },
-          { type: "image_url", image_url: { url: imageBase64 } },
+          {
+            inlineData: {
+              mimeType,
+              data: imageBuffer.toString("base64"),
+            },
+          },
         ],
       },
     ],
-    max_tokens: 600,
+    config: {
+      systemInstruction: SYSTEM_PROMPT,
+      responseMimeType: "application/json",
+    },
   });
 
-  const raw = response.choices[0].message.content;
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return { error: "Failed to parse AI response", raw };
-  }
+  return JSON.parse(response.text);
 };

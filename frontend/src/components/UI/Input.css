@@ -6,7 +6,7 @@
 }
 
 .input-label {
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-primary);
 }
@@ -17,19 +17,19 @@
 }
 
 .input {
-  padding: var(--spacing-md);
-  border: 2px solid var(--border);
+  padding: 0.625rem var(--spacing-md);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius-md);
-  font-size: 1rem;
+  font-size: 0.9375rem;
   color: var(--text-primary);
   background-color: var(--white);
-  transition: all 0.2s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
 }
 
 .input:focus {
-  outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(156, 175, 136, 0.1);
+  box-shadow: 0 0 0 3px rgba(88, 122, 78, 0.12);
 }
 
 .input::placeholder {
@@ -43,15 +43,15 @@
 }
 
 .input-error {
-  border-color: #e74c3c;
+  border-color: var(--color-error);
 }
 
 .input-error:focus {
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+  box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
 }
 
 .error-message {
-  font-size: 0.875rem;
-  color: #e74c3c;
+  font-size: 0.8125rem;
+  color: var(--color-error);
   margin-top: -0.25rem;
 }
